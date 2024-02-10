@@ -11,7 +11,7 @@ setuptools.setup(
     long_description=long_description,
     long_description_content_type="text/markdown",
     url="https://github.com/maxoyed/dingtalk-api",
-    packages=setuptools.find_packages(),
+    packages=setuptools.find_packages(include=["dingtalk_api", "dingtalk_api.*"]),
     classifiers=[
         "Programming Language :: Python :: 3",
         "License :: OSI Approved :: MIT License",
@@ -20,5 +20,5 @@ setuptools.setup(
     install_requires=[
         "requests",
     ],
-    python_requires=">=3",
+    python_requires=">=3.7",
 )
