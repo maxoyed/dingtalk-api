@@ -3,6 +3,7 @@ from dingtalk_api.core.session import ApiSession as ApiSession, OApiSession
 
 API_SESSION = None
 OAPI_SESSION = None
+APP_KEY = None
 
 
 class ApiClient:
@@ -15,10 +16,18 @@ class ApiClient:
         """
         global API_SESSION
         global OAPI_SESSION
+        global APP_KEY
+
         if not API_SESSION:
             API_SESSION = ApiSession(appKey, appSecret)
         if not OAPI_SESSION:
             OAPI_SESSION = OApiSession(appKey, appSecret)
+        if not APP_KEY:
+            APP_KEY = appKey
+
+    @property
+    def appKey(self):
+        return APP_KEY
 
     @property
     def contact(self):

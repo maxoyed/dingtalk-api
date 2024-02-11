@@ -1,6 +1,6 @@
 from pydantic import BaseModel
 
-from dingtalk_api.client import API_SESSION
+from dingtalk_api.client import API_SESSION, APP_KEY
 
 
 class downloadMessageFilesResp(BaseModel):
@@ -17,13 +17,13 @@ class downloadMessageFilesResp(BaseModel):
 
 class Robot:
     def downloadMessageFiles(
-        self, downloadCode: str, robotCode: str
+        self, downloadCode: str, robotCode: str = APP_KEY
     ) -> downloadMessageFilesResp:
         """[下载机器人接收消息的文件内容](https://open.dingtalk.com/document/orgapp/download-the-file-content-of-the-robot-receiving-message) 新版SDK
 
         Args:
             downloadCode (str): 用户向机器人发送文件消息后，机器人回调给开发者消息中的下载码
-            robotCode (str): 机器人的编码
+            robotCode (str): 机器人的编码(与机器人应用的appKey一致，默认值为当前应用的appKey)
 
         Returns:
             downloadMessageFilesResp: 返回参数
