@@ -1,11 +1,12 @@
-from typing import Optional
+from typing import Literal, Optional
 
 from pydantic import BaseModel
+from dingtalk_api.common.exception import OApiError
 from dingtalk_api.common.response import OApiRespBase
 from dingtalk_api.client import OAPI_SESSION
 
 
-class queryUserDetailsResult(BaseModel):
+class queryDetailsResult(BaseModel):
     userid: str
     "员工的userId"
 
@@ -66,25 +67,28 @@ class queryUserDetailsResult(BaseModel):
     """
 
 
-class queryUserDetailsResp(OApiRespBase):
-    result: queryUserDetailsResult
+class queryDetailsResp(OApiRespBase):
+    result: queryDetailsResult
     "返回结果"
 
 
 class User:
-    def queryUserDetails(
-        self, userid: str, language: str = "zh_CN"
-    ) -> queryUserDetailsResp:
+    def queryDetails(
+        self, userid: str, language: Literal["zh_CN", "en_US"] = "zh_CN"
+    ) -> queryDetailsResult:
         """[查询用户详情](https://open.dingtalk.com/document/orgapp/query-user-details) 旧版SDK
 
         Args:
             userid (str): 用户的userId
-            language (str, optional): 通讯录语言. Defaults to "zh_CN".
+            language (Literal[&quot;zh_CN&quot;, &quot;en_US&quot;], optional): 通讯录语言. Defaults to "zh_CN".
 
         Returns:
-            getUserResp: 用户详情
+            queryDetailsResp: 用户详情
         """
         endpoint = "/topapi/v2/user/get"
         data = {"userid": userid, "language": language}
         response = OAPI_SESSION.request("POST", endpoint, json=data)
-        return queryUserDetailsResp(**response.json())
+        response = queryDetailsResp(**response.json())
+        if response.errcode != 0:
+            raise OApiError(response.errmsg)
+        return response.result

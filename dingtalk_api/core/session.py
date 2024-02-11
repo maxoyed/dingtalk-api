@@ -2,7 +2,7 @@ import time
 from requests import Session
 from dingtalk_api.common.exception import AuthError
 from dingtalk_api.core.auth import ApiGetAccessToken, OApiGetAccessToken
-from dingtalk_api.core.constant import API_GATEWAY, API_VERSION, OAPI_GATEWAY
+from dingtalk_api.core.constant import API_GATEWAY, OAPI_GATEWAY
 
 
 class ApiSession(Session):
@@ -14,7 +14,7 @@ class ApiSession(Session):
         self.appSecret = appSecret
         self.__accessToken = None
         self.__expireIn = 0
-        self.__base_url = f"{API_GATEWAY}/{API_VERSION}"
+        self.__base_url = f"{API_GATEWAY}"
         self.__updateAccessToken()
 
     def __updateAccessToken(self):

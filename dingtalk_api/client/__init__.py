@@ -22,6 +22,14 @@ class ApiClient:
 
     @property
     def contact(self):
+        "通讯录管理"
         from dingtalk_api.client.contact import Contact
 
         return Contact()
+
+    @property
+    def im(self):
+        "即时通讯IM"
+        from dingtalk_api.client.im import IM
+
+        return IM()

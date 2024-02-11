@@ -1,7 +1,7 @@
 from pydantic import BaseModel
 from requests import get, post
 from dingtalk_api.common.response import OApiRespBase
-from dingtalk_api.core.constant import OAPI_GATEWAY, API_GATEWAY, API_VERSION
+from dingtalk_api.core.constant import OAPI_GATEWAY, API_GATEWAY
 
 
 class ApiGetAccessTokenResp(BaseModel):
@@ -28,7 +28,7 @@ def ApiGetAccessToken(appKey: str, appSecret: str) -> ApiGetAccessTokenResp:
     Returns:
         ApiGetAccessTokenResp: 返回参数
     """
-    url = f"{API_GATEWAY}/{API_VERSION}/oauth2/accessToken"
+    url = f"{API_GATEWAY}/v1.0/oauth2/accessToken"
     headers = {"Content-Type": "application/json"}
     response = post(
         url, headers=headers, json={"appKey": appKey, "appSecret": appSecret}
