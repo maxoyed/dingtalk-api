@@ -4,7 +4,7 @@ with open("README.md", "r", encoding="utf-8") as fh:
     long_description = fh.read()
 setuptools.setup(
     name="dingtalk-api",
-    version="0.0.2",
+    version="0.0.3",
     author="maxoyed",
     author_email="maxoyed@gmail.com",
     description="钉钉服务端 API",
